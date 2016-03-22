@@ -6,7 +6,7 @@ in astro-dynamics, for example, two-body and three-body problems.
 
 * Usage
 ** two-body problem
-In case modify parameters in the beginning of =twobody.cpp=, and
+In case modify the  parameters at the beginning of =twobody.cpp=, and
 type following command in your *nix terminal:
 
 #+BEGIN_SRC sh
