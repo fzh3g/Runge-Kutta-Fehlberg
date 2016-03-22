@@ -1,0 +1,20 @@
+#+TITLE: Runge-Kutta-Fehlberg 7(8) Method for Astro-dynamics
+
+* Purpose
+Using Runge-Kutta-Fehlberg 7(8) method for solving numerical problems
+in astro-dynamics, for example, two-body and three-body problems.
+
+* Usage
+** two-body problem
+In case modify parameters in the beginning of =twobody.cpp=, and
+type following command in your *nix terminal:
+
+#+BEGIN_SRC sh
+  make
+  make run
+  make plot
+#+END_SRC
+
+[[file:orbit_trace.pdf]]
+
+* TODO three-body problems
