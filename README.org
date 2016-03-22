@@ -15,6 +15,6 @@ type following command in your *nix terminal:
   make plot
 #+END_SRC
 
-[[file:orbit_trace.eps]]
+[[file:orbit_trace.png]]
 
 * TODO three-body problems
