@@ -22,7 +22,7 @@ def main():
     pl.ticklabel_format(style='sci', scilimits=(0, 0))
     pl.axis('equal')
     pl.title("Orbit Trace")
-    pl.savefig("orbit_trace.pdf")
+    pl.savefig("orbit_trace.eps")
     pl.show()
 
 
