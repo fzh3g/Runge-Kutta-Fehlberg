@@ -15,19 +15,19 @@ using namespace std;
 
 // initialize the position and velocity of the orbit
 // Miu
-const long double RKF78Orbit_Miu            = 10.0;
+const long double twobody_Miu            = 10.0;
 // X
-const long double RKF78Orbit_X              = 1.0;
+const long double twobody_X              = 1.0;
 // Y
-const long double RKF78Orbit_Y              = 0.0;
+const long double twobody_Y              = 0.0;
 // V_x
-const long double RKF78Orbit_V_x            = 0.0;
+const long double twobody_V_x            = 0.0;
 // V_y
-const long double RKF78Orbit_V_y            = 2.0;
+const long double twobody_V_y            = 2.0;
 // number of period
-const long double RKF78Orbit_NumberofPeriod = 2;
+const long double twobody_NumberofPeriod = 2;
 // TOL
-const long double RKF78Orbit_TOL            = 1e-12;
+const long double twobody_TOL            = 1e-12;
 
 // function templates
 template<class T>
@@ -40,24 +40,24 @@ T f1(T t, T y[4]) {
 }
 template<class T>
 T f2(T t, T y[4]) {
-    return -RKF78Orbit_Miu * y[0] * pow(y[0] * y[0] + y[1] * y[1], -1.5);
+    return -twobody_Miu * y[0] * pow(y[0] * y[0] + y[1] * y[1], -1.5);
 }
 template<class T>
 T f3(T t, T y[4]) {
-    return -RKF78Orbit_Miu * y[1] * pow(y[0] * y[0] + y[1] * y[1], -1.5);
+    return -twobody_Miu * y[1] * pow(y[0] * y[0] + y[1] * y[1], -1.5);
 }
 
 int main(int argc, char *argv[]) {
     const char *outputfile = "twobody_output.dat"; // output file
-    long double rkf[4] = {RKF78Orbit_X, RKF78Orbit_Y, RKF78Orbit_V_x,
-                          RKF78Orbit_V_y}; // variables for rkf
+    long double rkf[4] = {twobody_X, twobody_Y, twobody_V_x,
+                          twobody_V_y}; // variables for rkf
     // initial orbit
     long double energy_begin = 0.0;
     long double period_begin = 0.0;
     try {                       // error handling
         OrbitEllipse2D<long double> OrbElli_begin(rkf[0], rkf[1],
                                                   rkf[2], rkf[3],
-                                                  RKF78Orbit_Miu);
+                                                  twobody_Miu);
         energy_begin = OrbElli_begin.Ener; // energy
         period_begin = OrbElli_begin.Peri; // period
     } catch (invalid_argument& e) {
@@ -70,10 +70,10 @@ int main(int argc, char *argv[]) {
     RKF.f[1] = &(f1<long double>);
     RKF.f[2] = &(f2<long double>);
     RKF.f[3] = &(f3<long double>);
-    long double tend = period_begin * RKF78Orbit_NumberofPeriod; // tend
+    long double tend = period_begin * twobody_NumberofPeriod; // tend
     try {                                  // error handling
         RKF.solve(period_begin / 1000.0, period_begin / 1e+8, rkf,
-                  RKF78Orbit_TOL, 0.0, tend, outputfile); // apply rkf78-4
+                  twobody_TOL, 0.0, tend, outputfile); // apply rkf78-4
     } catch (invalid_argument& e) {
         cerr << e.what() << endl;
         return -1;
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
     try {                       // error handling
         OrbitEllipse2D<long double> OrbElli_end(rkf[0], rkf[1],
                                                 rkf[2], rkf[3],
-                                                RKF78Orbit_Miu);
+                                                twobody_Miu);
         energy_end = OrbElli_end.Ener; // energy
         period_end = OrbElli_end.Peri; // period
     } catch (invalid_argument& e) {
