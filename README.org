@@ -17,5 +17,5 @@ type following command in your *nix terminal:
 
 [[file:orbit_trace.png]]
 
-* TODO
+* Todo
 ** three-body problems
