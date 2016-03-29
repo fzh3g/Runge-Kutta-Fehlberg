@@ -16,7 +16,6 @@
 #include <sstream>
 #include <string>
 #include <stdexcept>
-#include "rkf78.hpp"
 using namespace std;
 
 template<class T, int dim>
