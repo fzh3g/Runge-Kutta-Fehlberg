@@ -19,4 +19,6 @@ run:
 
 # Plot orbit trace using python
 plot:
-	./plot_trace.py
+	./simple_plot.py twobody_output.dat --show --columns 2 3 --equal \
+    --del-header 1 --title 'Orbit Trace' --figname 'orbit_trace' \
+	--figtype 'png'
