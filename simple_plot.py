@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-import numpy as np
-import matplotlib.pyplot as pl
-import click
-
-
 """
 Usage: simple_plot.py [OPTIONS] DATAFILE
 
@@ -27,6 +22,11 @@ Examples:
   $ ./simple_plot.py twobody_output.dat --show --columns 2 3 --equal \
     --del-header 1 --title 'Orbit Trace' --figname 'orbit_trace'
 """
+
+from matplotlib import rc
+import numpy as np
+import matplotlib.pyplot as pl
+import click
 
 
 def read_two_col(filename, col0, col1, header):
@@ -56,7 +56,7 @@ def simple_plot():
               help='Two columns of the data file to plot.')
 @click.option('--del-header', default=0,
               help='Number of header lines to delete.')
-@click.option('--labels', nargs=2, default=('X', 'Y'),
+@click.option('--labels', nargs=2, default=('$x$', '$y$'),
               help='Labels of X and Y axes.')
 @click.option('--xlim', nargs=2, type=(float, float), default=(0, 0),
               help='Limit of X axis.')
@@ -77,11 +77,15 @@ def simple_plot():
 def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
              title, figname, sci, equal, show, figtype):
     """Read two columns of data from DATAFILE and plot."""
+    rc('font', **{'family': 'sans-serif', 'sans-serif': ['Helvetica']})
+    rc('text', usetex=True)
     x, y = read_two_col(datafile, columns[0], columns[1], del_header)
+    pl.rc('font', family='serif')
     pl.figure(figsize=(8, 6))
-    pl.plot(x, y, 'o', markersize=1.0, linestyle='None')
-    pl.xlabel(labels[0])
-    pl.ylabel(labels[1])
+    pl.plot(x, y, marker='.', markersize=2.0, color='r',
+            linestyle='None')
+    pl.xlabel(labels[0], fontsize=16)
+    pl.ylabel(labels[1], fontsize=16)
     if not (xlim[0] == xlim[1]):
         pl.xlim(xlim)
     if not (ylim[0] == ylim[1]):
@@ -90,7 +94,8 @@ def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
         pl.ticklabel_format(style='sci', scilimits=(0, 0))
     if equal:
         pl.axis('equal')
-    pl.title(title)
+    if len(title) > 0:
+        pl.title(title, fontsize=16)
     fig_name = figname + '.' + figtype
     pl.savefig(fig_name)
     if show:
