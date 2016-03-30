@@ -77,7 +77,6 @@ def simple_plot():
 def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
              title, figname, sci, equal, show, figtype):
     """Read two columns of data from DATAFILE and plot."""
-    rc('font', **{'family': 'sans-serif', 'sans-serif': ['Helvetica']})
     rc('text', usetex=True)
     x, y = read_two_col(datafile, columns[0], columns[1], del_header)
     pl.rc('font', family='serif')
