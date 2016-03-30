@@ -152,7 +152,7 @@ void RKF78<T, dim>::rkf78(T hmax, T hmin, T *hnow, T *time,
         if (*hnow < 0){                     // error handling
             throw invalid_argument("Minimum h exceeded!");
         }
-    }    
+    }
 }
 
 template<class T, int dim>
