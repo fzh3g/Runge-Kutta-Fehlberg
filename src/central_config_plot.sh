@@ -6,7 +6,7 @@ echo "Plotting phi-t figure..."
                       --labels '$t$' '$\phi{}$' \
                       --title '$\phi{}$ to $t$' \
                       --figname 'central_config_phi' \
-                      --xlim 0 20 --ylim 0 18
+                      --xlim 0 20 --ylim 0 18 --figtype 'png'
 
 echo "Plotting phidot-t figure..."
 
@@ -14,7 +14,7 @@ echo "Plotting phidot-t figure..."
                       --labels '$t$' '$d\phi{}/dt$' \
                       --title '$\displaystyle\frac{d\phi{}}{dt}$ to $t$' \
                       --figname 'central_config_phidot' \
-                      --xlim 0 20 --ylim -4 1
+                      --xlim 0 20 --ylim -4 1 --figtype 'png'
 
 echo "Plotting phidot-phi figure..."
 
@@ -22,6 +22,6 @@ echo "Plotting phidot-phi figure..."
                       --labels '$\phi{}$' '$d\phi{}/dt$' \
                       --title '$\displaystyle\frac{d\phi{}}{dt}$ to $\phi{}$' \
                       --figname 'central_config_phiphase' \
-                      --xlim 0 8 --ylim -4 1
+                      --xlim 0 8 --ylim -4 1 --figtype 'png'
 
 echo "Done!"

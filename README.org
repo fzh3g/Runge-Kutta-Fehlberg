@@ -15,7 +15,15 @@ type following command in your *nix terminal:
   make plot
 #+END_SRC
 
-[[file:./img/orbit_trace.png]]
+[[file:img/orbit_trace.png]]
+** three-body problems
+*** central configuration
+Solve the differential equation that required by =central configuration=
 
+[[file:img/central_config_phi.png]]
+
+[[file:img/central_config_phidot.png]]
+
+[[file:img/central_config_phiphase.png]]
 * Todo
 ** three-body problems
