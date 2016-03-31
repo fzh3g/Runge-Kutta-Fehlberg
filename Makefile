@@ -17,10 +17,12 @@ SHELL = /bin/bash
 all: ${DIR_BIN}/twobody ${DIR_BIN}/central_config
 
 
-${DIR_BIN}/twobody: ${DIR_SRC}/twobody.cpp
+${DIR_BIN}/twobody: ${DIR_SRC}/twobody.cpp \
+					${DIR_INC}/rkf78.hpp ${DIR_INC}/orbit_ellipse_2d.hpp
 	$(CC) $(CFLAGS) $< -o $@
 
-${DIR_BIN}/central_config: ${DIR_SRC}/central_config.cpp
+${DIR_BIN}/central_config: ${DIR_SRC}/central_config.cpp \
+							${DIR_INC}/rkf78.hpp
 	$(CC) $(CFLAGS) $< -o $@
 
 .PHONY: all clean run_twobody run_centconf plot_twobody plot_centconf
@@ -31,10 +33,10 @@ clean:
 
 # Run the program
 run_twobody:
-	cd ${DIR_DAT} && ../bin/twobody && cd ..
+	cd ${DIR_DAT} && .${DIR_BIN}/twobody && cd ..
 
 run_centconf:
-	cd ${DIR_DAT} && ../bin/central_config && cd ..
+	cd ${DIR_DAT} && .${DIR_BIN}/central_config && cd ..
 
 # Plot orbit trace using python
 plot_twobody:
