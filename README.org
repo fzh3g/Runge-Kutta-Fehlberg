@@ -11,14 +11,20 @@ type following command in your *nix terminal:
 
 #+BEGIN_SRC sh
   make
-  make run
-  make plot
+  make run_twobody
+  make plot_twobody
 #+END_SRC
 
 [[file:img/orbit_trace.png]]
 ** three-body problems
 *** central configuration
-Solve the differential equation that required by =central configuration=
+Solve the differential equation required by =central configuration=
+
+#+BEGIN_SRC sh
+  make
+  make run_centconf
+  make plot_centconf
+#+END_SRC
 
 [[file:img/central_config_phi.png]]
 
