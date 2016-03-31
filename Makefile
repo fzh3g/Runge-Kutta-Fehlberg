@@ -18,11 +18,11 @@ all: ${DIR_BIN}/twobody ${DIR_BIN}/central_config
 
 
 ${DIR_BIN}/twobody: ${DIR_SRC}/twobody.cpp \
-					${DIR_INC}/rkf78.hpp ${DIR_INC}/orbit_ellipse_2d.hpp
+		${DIR_INC}/rkf78.hpp ${DIR_INC}/orbit_ellipse_2d.hpp
 	$(CC) $(CFLAGS) $< -o $@
 
 ${DIR_BIN}/central_config: ${DIR_SRC}/central_config.cpp \
-							${DIR_INC}/rkf78.hpp
+		${DIR_INC}/rkf78.hpp
 	$(CC) $(CFLAGS) $< -o $@
 
 .PHONY: all clean run_twobody run_centconf plot_twobody plot_centconf
