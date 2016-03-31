@@ -9,8 +9,8 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include "rkf78.hpp"
-#include "orbit_ellipse_2d.hpp"
+#include "../include/rkf78.hpp"
+#include "../include/orbit_ellipse_2d.hpp"
 using namespace std;
 
 // initialize the position and velocity of the orbit
