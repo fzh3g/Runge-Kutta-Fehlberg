@@ -34,7 +34,7 @@ Solve the differential equation required by =central configuration=
 *** restricted three-body problem
 **** Hill surface
 
-Using =python= to plot Hill surface
+Plot Hill surface using =python=
 
 [[file:img/hill_surf.png]]
 
