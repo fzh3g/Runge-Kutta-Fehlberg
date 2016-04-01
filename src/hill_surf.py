@@ -130,7 +130,7 @@ ax3 = fig3.add_subplot(111, projection='3d')
 bbox = (-2.0, 2.0)
 A = np.linspace(bbox[0], bbox[1], 200)
 X, Y = np.meshgrid(A, A)
-Z = np.log((Hill_Surf_Cj_xy(Hill_Surf_n, Hill_Surf_Miu))(X, Y))
+Z = np.log10((Hill_Surf_Cj_xy(Hill_Surf_n, Hill_Surf_Miu))(X, Y))
 surf = ax3.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=plt.cm.coolwarm,
                         linewidth=0, antialiased=False)
 cbar = plt.colorbar(surf, shrink=0.5, aspect=8)
