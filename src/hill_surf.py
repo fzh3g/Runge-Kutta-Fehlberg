@@ -139,7 +139,7 @@ ax3.set_xlabel('$x$')
 ax3.set_ylabel('$y$')
 ax3.set_zlabel('$log(z)$')
 ax3.tick_params(labelsize=8)
-ax3.set_title('$C_{J}$ Surface, $\mu{}=0.1$')
+ax3.set_title('$C_{J}$ Surface, $\mu{}=0.1$', fontsize=16)
 fig3.savefig('cj_surface.png')
 
 # show figures
