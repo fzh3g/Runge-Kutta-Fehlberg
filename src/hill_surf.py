@@ -140,6 +140,7 @@ ax3.set_ylabel('$y$')
 ax3.set_zlabel('$log(C_{J})$')
 ax3.tick_params(labelsize=8)
 ax3.set_title('$C_{J}$ Surface, $\mu{}=0.1, z=0$', fontsize=16)
+ax3.dist = 12
 fig3.savefig('cj_surface.png')
 
 # show figures
