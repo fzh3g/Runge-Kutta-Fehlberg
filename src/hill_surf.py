@@ -19,14 +19,14 @@ def Hill_Surf(n, Miu, Cj):
     return hill_surf
 
 
-def Hill_Surf_Zero(n, Miu):
-    """Hill surface equation on z==0 plane."""
-    def hill_surf_zero(x, y):
+def Hill_Surf_Cj_xy(n, Miu):
+    """Cj function when z==0."""
+    def func(x, y):
         r1 = ((x + Miu)**2 + y**2)**0.5
         r2 = ((x + Miu - 1)**2 + y**2)**0.5
         return n**2 * (x**2 + y**2) + 2 * (1 - Miu) / r1 + 2 * Miu / r2
 
-    return hill_surf_zero
+    return func
 
 
 def plot_implicit(ax, fn, bbox=(-2.5, 2.5)):
@@ -103,7 +103,7 @@ for i in range(3):
                                         Hill_Surf_Cj[i]), bbox=(-2.0, 2.0))
     ax1[2 * i].set_title('$C_{L_{%d}}$=%.4f' % (i + 1, Hill_Surf_Cj[i]),
                          fontsize=10)
-    plot_contour(ax1[2 * i + 1], Hill_Surf_Zero(Hill_Surf_n, Hill_Surf_Miu),
+    plot_contour(ax1[2 * i + 1], Hill_Surf_Cj_xy(Hill_Surf_n, Hill_Surf_Miu),
                  bbox=(-2.0, 2.0), levels=[Hill_Surf_Cj[i]])
 
 fig1.suptitle('Hill Surface, $\mu{}=0.1$', fontsize=16)
@@ -116,7 +116,7 @@ ax2 = fig2.add_subplot(111)
 steps = 12
 levels = np.linspace(2.9, 4.0, steps)
 
-plot_contour(ax2, Hill_Surf_Zero(Hill_Surf_n, Hill_Surf_Miu),
+plot_contour(ax2, Hill_Surf_Cj_xy(Hill_Surf_n, Hill_Surf_Miu),
              bbox=(-2.0, 2.0), levels=levels)
 ax2.set_xlabel('$x$', fontsize=14)
 ax2.set_ylabel('$y$', fontsize=14)
