@@ -31,5 +31,13 @@ Solve the differential equation required by =central configuration=
 [[file:img/central_config_phidot.png]]
 
 [[file:img/central_config_phiphase.png]]
+*** restricted three-body problem
+**** Hill surface
+
+Using =python= to plot Hill surface
+
+[[file:img/hill_surf.png]]
+
+[[file:img/cj_contour.png]]
 * Todo
 ** three-body problems
