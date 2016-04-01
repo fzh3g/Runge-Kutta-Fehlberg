@@ -32,12 +32,14 @@ Solve the differential equation required by =central configuration=
 
 [[file:img/central_config_phiphase.png]]
 *** restricted three-body problem
-**** Hill surface and Cj contour
+**** Hill surface,  Cj contour and Cj surface
 
 Plot Hill surface using =python=
 
 [[file:img/hill_surf.png]]
 
 [[file:img/cj_contour.png]]
+
+[[file:img/cj_surface.png]]
 * Todo
 ** three-body problems

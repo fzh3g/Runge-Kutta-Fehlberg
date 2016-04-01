@@ -34,7 +34,7 @@ def plot_implicit(ax, fn, bbox=(-2.5, 2.5)):
     fn  ...implicit function (plot where fn==0)
     bbox ..the x,y,and z limits of plotted interval"""
     xmin, xmax, ymin, ymax, zmin, zmax = bbox*3
-    A = np.linspace(xmin, xmax, 150)  # resolution of the contour
+    A = np.linspace(xmin, xmax, 100)  # resolution of the contour
     B = np.linspace(xmin, xmax, 15)   # number of slices
     A1, A2 = np.meshgrid(A, A)  # grid on which the contour is plotted
     for z in B:  # plot contours in the XY plane
@@ -107,7 +107,7 @@ for i in range(3):
                  bbox=(-2.0, 2.0), levels=[Hill_Surf_Cj[i]])
 
 fig1.suptitle('Hill Surface, $\mu{}=0.1$', fontsize=16)
-fig1.savefig('hill_surf.pdf')
+fig1.savefig('hill_surf.png')
 
 
 # plot C_{J} contour
@@ -121,7 +121,26 @@ plot_contour(ax2, Hill_Surf_Cj_xy(Hill_Surf_n, Hill_Surf_Miu),
 ax2.set_xlabel('$x$', fontsize=14)
 ax2.set_ylabel('$y$', fontsize=14)
 ax2.set_title('$C_{J}$ Contour, $\mu{}=0.1$', fontsize=16)
-fig2.savefig('cj_contour.pdf')
+fig2.savefig('cj_contour.png')
+
+
+# plot C_{J} surface
+fig3 = plt.figure()
+ax3 = fig3.add_subplot(111, projection='3d')
+bbox = (-2.0, 2.0)
+A = np.linspace(bbox[0], bbox[1], 200)
+X, Y = np.meshgrid(A, A)
+Z = np.log((Hill_Surf_Cj_xy(Hill_Surf_n, Hill_Surf_Miu))(X, Y))
+surf = ax3.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap=plt.cm.coolwarm,
+                        linewidth=0, antialiased=False)
+cbar = plt.colorbar(surf, shrink=0.5, aspect=8)
+cbar.ax.tick_params(labelsize=8)
+ax3.set_xlabel('$x$')
+ax3.set_ylabel('$y$')
+ax3.set_zlabel('$log(z)$')
+ax3.tick_params(labelsize=8)
+ax3.set_title('$C_{J}$ Surface, $\mu{}=0.1$')
+fig3.savefig('cj_surface.png')
 
 # show figures
 plt.show()
