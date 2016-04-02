@@ -10,7 +10,6 @@
 
 #include <cmath>
 #include <stdexcept>
-#include "orbit_ellipse_2d.hpp"
 
 template<class T>
 class OrbitEllipse2D{
