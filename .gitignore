@@ -2,3 +2,13 @@
 *.dat
 *.eps
 *.pdf
+*.xcodeproj
+
+# Build Targets
+build/
+
+# Inputs
+
+# Outputs
+img/
+data/

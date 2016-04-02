@@ -58,8 +58,8 @@ int main(int argc, char *argv[]) {
         OrbitEllipse2D<long double> OrbElli_begin(rkf[0], rkf[1],
                                                   rkf[2], rkf[3],
                                                   twobody_Miu);
-        energy_begin = OrbElli_begin.Ener; // energy
-        period_begin = OrbElli_begin.Peri; // period
+        energy_begin = OrbElli_begin.Energy(); // energy
+        period_begin = OrbElli_begin.Period(); // period
     } catch (invalid_argument& e) {
         cerr << e.what() << endl;
         return -1;
@@ -85,8 +85,8 @@ int main(int argc, char *argv[]) {
         OrbitEllipse2D<long double> OrbElli_end(rkf[0], rkf[1],
                                                 rkf[2], rkf[3],
                                                 twobody_Miu);
-        energy_end = OrbElli_end.Ener; // energy
-        period_end = OrbElli_end.Peri; // period
+        energy_end = OrbElli_end.Energy(); // energy
+        period_end = OrbElli_end.Period(); // period
     } catch (invalid_argument& e) {
         cerr << e.what() << endl;
         return -1;
