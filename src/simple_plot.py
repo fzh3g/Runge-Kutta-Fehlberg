@@ -6,18 +6,20 @@ Usage: simple_plot.py [OPTIONS] DATAFILE
   Read two columns of data from DATAFILE and plot.
 
 Options:
-  --columns INTEGER...     Two columns of the data file to plot.
-  --del-header INTEGER     Number of header lines to delete.
-  --labels <TEXT TEXT>...  Labels of X and Y axes.
-  --xlim <FLOAT FLOAT>...  Limit of X axis.
-  --ylim <FLOAT FLOAT>...  Limit of Y axis.
-  --title TEXT             Title of the figure.
-  --figname TEXT           Name of the figure to save (default: simple_plot).
-  --figtype TEXT           Format of the figure to save (default: eps).
-  --sci                    Apply scientific notation to the axes.
-  --equal                  Same aspect for X and Y axes.
-  --line                   Plot line instead of dots.
-  --show                   Show the figure.
+  --columns <INTEGER INTEGER>...  Two columns of the data file to plot.
+  --del-header INTEGER            Number of header lines to delete.
+  --labels <TEXT TEXT>...         Labels of X and Y axes.
+  --xlim <FLOAT FLOAT>...         Limit of X axis.
+  --ylim <FLOAT FLOAT>...         Limit of Y axis.
+  --title TEXT                    Title of the figure.
+  --figname TEXT                  Name of the figure to save (default:
+                                  simple_plot).
+  --figtype TEXT                  Format of the figure to save (default:
+                                  eps).
+  --sci                           Apply scientific notation to the axes.
+  --equal                         Same aspect for X and Y axes.
+  --line                          Plot line instead of dots.
+  --show                          Show the figure.
 
 Examples:
   $ ./simple_plot.py twobody_output.dat --show --columns 2 3 --equal \
