@@ -16,6 +16,7 @@ Options:
   --figtype TEXT           Format of the figure to save (default: eps).
   --sci                    Apply scientific notation to the axes.
   --equal                  Same aspect for X and Y axes.
+  --line                   Plot line instead of dots.
   --show                   Show the figure.
 
 Examples:
@@ -27,23 +28,7 @@ from matplotlib import rc
 import numpy as np
 import matplotlib.pyplot as pl
 import click
-
-
-def read_two_col(filename, col0, col1, header):
-    """Read two columns of data in a file"""
-    f = open(filename, 'r')
-    if header > 0:
-        for i in range(header):
-            f.readline()
-    x = []
-    y = []
-    for line in f:
-        line = line.strip()
-        columns = line.split()
-        x.append(np.longdouble(columns[col0]))
-        y.append(np.longdouble(columns[col1]))
-    f.close()
-    return x, y
+import read_data
 
 
 @click.group()
@@ -73,16 +58,23 @@ def simple_plot():
               help='Same aspect for X and Y axes.')
 @click.option('--show', is_flag=True,
               help='Show the figure.')
+@click.option('--line', is_flag=True,
+              help='Plot line instead of dots.')
 @click.argument('datafile')
 def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
-             title, figname, sci, equal, show, figtype):
+             title, figname, sci, equal, show, line, figtype):
     """Read two columns of data from DATAFILE and plot."""
     rc('text', usetex=True)
-    x, y = read_two_col(datafile, columns[0], columns[1], del_header)
+    data = read_data.read_cols(datafile, columns, header=del_header)
+    x = data[0]
+    y = data[1]
     pl.rc('font', family='serif')
     pl.figure(figsize=(8, 6))
-    pl.plot(x, y, marker='.', markersize=2.0, color='r',
-            linestyle='None')
+    if line:
+        pl.plot(x, y, color='r')
+    else:
+        pl.plot(x, y, marker='.', markersize=2.0, color='r',
+                linestyle='None')
     pl.xlabel(labels[0], fontsize=16)
     pl.ylabel(labels[1], fontsize=16)
     if not (xlim[0] == xlim[1]):
