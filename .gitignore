@@ -4,3 +4,4 @@
 *.pdf
 *.pyc
 /bin/*
+/data/*
