@@ -41,6 +41,12 @@ Plot Hill surface using =python=
 [[file:img/cj_contour.png]]
 
 [[file:img/cj_surface.png]]
+**** PCR3BP
+
+Planar circular restricted 3-body problem
+
+[[file:img/pcr3b.png]]
+
 **** Sitnikov problem
 
 [[file:img/sitnikov_circle.png]]
