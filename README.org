@@ -14,13 +14,14 @@
        - [[#pcr3bp][PCR3BP]]
        - [[#poincaré-section][Poincaré Section]]
        - [[#sitnikov-problem][Sitnikov problem]]
-     - [[#lorenz-attractor][Lorenz attractor]]
+   - [[#lorenz-attractor][Lorenz attractor]]
 
 * Purpose
 Using Runge-Kutta-Fehlberg 7(8) method for solving numerical problems
 in astro-dynamics, for example, two-body and three-body problems.
 
 * Contents
+
 ** Two-body problem
 Modify the  parameters at the beginning of =twobody.cpp=, and
 type following command in your *nix terminal:
@@ -78,7 +79,6 @@ Planar circular restricted 3-body problem
 [[file:img/sitnikov_circle.png]]
 
 [[file:img/sitnikov_ellipse.png]]
-
-*** Lorenz attractor
+** Lorenz attractor
 
 [[file:img/lorenz.png]]
