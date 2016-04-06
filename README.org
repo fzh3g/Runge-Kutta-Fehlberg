@@ -4,24 +4,24 @@
 * Table of Contents                                                             :TOC:
  - [[#purpose][Purpose]]
  - [[#contents][Contents]]
-   - [[#two-body-problem][two-body problem]]
-   - [[#three-body-problems][three-body problems]]
-     - [[#central-configuration][central configuration]]
-     - [[#restricted-three-body-problem][restricted three-body problem]]
-       - [[#hill-surface--cj-contour-and-cj-surface][Hill surface,  Cj contour and Cj surface]]
+   - [[#two-body-problem][Two-body problem]]
+   - [[#three-body-problems][Three-body problems]]
+     - [[#central-configuration][Central configuration]]
+     - [[#restricted-three-body-problem][Restricted three-body problem]]
+       - [[#hill-surface][Hill surface]]
+       - [[#cj-contour][Cj contour]]
+       - [[#cj-surface][Cj surface]]
        - [[#pcr3bp][PCR3BP]]
-       - [[#sitnikov-problem][Sitnikov problem]]
        - [[#poincaré-section][Poincaré Section]]
+       - [[#sitnikov-problem][Sitnikov problem]]
      - [[#lorenz-attractor][Lorenz attractor]]
- - [[#todo][Todo]]
-   - [[#three-body-problems][three-body problems]]
 
 * Purpose
 Using Runge-Kutta-Fehlberg 7(8) method for solving numerical problems
 in astro-dynamics, for example, two-body and three-body problems.
 
 * Contents
-** two-body problem
+** Two-body problem
 Modify the  parameters at the beginning of =twobody.cpp=, and
 type following command in your *nix terminal:
 
@@ -32,8 +32,8 @@ type following command in your *nix terminal:
 #+END_SRC
 
 [[file:img/orbit_trace.png]]
-** three-body problems
-*** central configuration
+** Three-body problems
+*** Central configuration
 Solve the differential equation required by =central configuration=
 
 #+BEGIN_SRC sh
@@ -47,14 +47,14 @@ Solve the differential equation required by =central configuration=
 [[file:img/central_config_phidot.png]]
 
 [[file:img/central_config_phiphase.png]]
-*** restricted three-body problem
-**** Hill surface,  Cj contour and Cj surface
-
-Plot Hill surface using =python=
+*** Restricted three-body problem
+**** Hill surface
 
 [[file:img/hill_surf.png]]
+**** Cj contour
 
 [[file:img/cj_contour.png]]
+**** Cj surface
 
 [[file:img/cj_surface.png]]
 **** PCR3BP
@@ -62,12 +62,6 @@ Plot Hill surface using =python=
 Planar circular restricted 3-body problem
 
 [[file:img/pcr3b.png]]
-
-**** Sitnikov problem
-
-[[file:img/sitnikov_circle.png]]
-
-[[file:img/sitnikov_ellipse.png]]
 
 **** Poincaré Section
 
@@ -79,8 +73,12 @@ Planar circular restricted 3-body problem
 
 [[file:img/poincare_section_l4.png]]
 
+**** Sitnikov problem
+
+[[file:img/sitnikov_circle.png]]
+
+[[file:img/sitnikov_ellipse.png]]
+
 *** Lorenz attractor
 
 [[file:img/lorenz.png]]
-* Todo
-** three-body problems
