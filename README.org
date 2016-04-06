@@ -46,5 +46,8 @@ Plot Hill surface using =python=
 [[file:img/sitnikov_circle.png]]
 
 [[file:img/sitnikov_ellipse.png]]
+*** Lorenz attractor
+
+[[file:img/lorenz.png]]
 * Todo
 ** three-body problems
