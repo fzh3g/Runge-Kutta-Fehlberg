@@ -14,7 +14,9 @@ CFLAGS = -Wall -std=c++14 -I${DIR_INC}
 # shell
 SHELL = /bin/bash
 
-all: ${DIR_BIN}/twobody ${DIR_BIN}/central_config
+all: ${DIR_BIN}/twobody ${DIR_BIN}/central_config ${DIR_BIN}/pcr3b \
+		${DIR_BIN}/poincare_section ${DIR_BIN}/sitnikov \
+		${DIR_BIN}/lorenz
 
 
 ${DIR_BIN}/twobody: ${DIR_SRC}/twobody.cpp \
@@ -25,7 +27,24 @@ ${DIR_BIN}/central_config: ${DIR_SRC}/central_config.cpp \
 		${DIR_INC}/rkf78.hpp
 	$(CC) $(CFLAGS) $< -o $@
 
-.PHONY: all clean run_twobody run_centconf plot_twobody plot_centconf
+${DIR_BIN}/pcr3b: ${DIR_SRC}/pcr3b.cpp ${DIR_INC}/rkf78.hpp
+	$(CC) $(CFLAGS) $< -o $@
+
+${DIR_BIN}/poincare_section: ${DIR_SRC}/poincare_section.cpp \
+		${DIR_INC}/rkf78.hpp
+	$(CC) $(CFLAGS) $< -o $@
+
+${DIR_BIN}/sitnikov: ${DIR_SRC}/sitnikov.cpp \
+		${DIR_INC}/rkf78.hpp
+	$(CC) $(CFLAGS) $< -o $@
+
+${DIR_BIN}/lorenz: ${DIR_SRC}/lorenz.cpp \
+		${DIR_INC}/rkf78.hpp
+	$(CC) $(CFLAGS) $< -o $@
+
+.PHONY: all clean run_twobody plot_twobody run_centconf plot_centconf \
+		run_pcr3b plot_pcr3b run_poincsec run_sitnikov plot_sitnikov \
+		run_lorenz
 
 # Remove files compiled
 clean:
@@ -38,6 +57,18 @@ run_twobody:
 run_centconf:
 	cd ${DIR_DAT} && .${DIR_BIN}/central_config && cd ..
 
+run_pcr3b:
+	cd ${DIR_DAT} && .${DIR_BIN}/pcr3b && cd ..
+
+run_poincsec:
+	cd ${DIR_DAT} && .${DIR_BIN}/poincare_section && cd ..
+
+run_sitnikov:
+	cd ${DIR_DAT} && .${DIR_BIN}/sitnikov && cd ..
+
+run_lorenz:
+	cd ${DIR_DAT} && .${DIR_BIN}/lorenz && cd ..
+
 # Plot orbit trace using python
 plot_twobody:
 	cd ${DIR_IMG} && .${DIR_SRC}/simple_plot.py \
@@ -47,3 +78,16 @@ plot_twobody:
 
 plot_centconf:
 	cd ${DIR_IMG} && .${DIR_SRC}/central_config_plot.sh && cd ..
+
+plot_pcr3b:
+	cd ${DIR_IMG} && .${DIR_SRC}/simple_plot.py \
+	.${DIR_DAT}/pcr3b.dat --show --sci \
+	--columns 2 3 --equal --title 'Planar Circular Restricted 3 Body' \
+	--figname 'pcr3b' --figtype 'png' --line && cd ..
+
+plot_sitnikov:
+	cd ${DIR_IMG} && .${DIR_SRC}/simple_plot.py \
+	.${DIR_DAT}/sitnikov.dat --show --sci --del-header 1 \
+	--columns 2 3 --title 'Phase Diagram of Sitnikov Problem' \
+	--labels 'x' 'dx/dt' --figname 'sitnikov' --figtype 'png' \
+	&& cd ..

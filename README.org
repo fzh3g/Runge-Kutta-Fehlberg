@@ -52,6 +52,17 @@ Planar circular restricted 3-body problem
 [[file:img/sitnikov_circle.png]]
 
 [[file:img/sitnikov_ellipse.png]]
+
+**** Poincaré Section
+
+[[file:img/poincare_section_l1.png]]
+
+[[file:img/poincare_section_l2.png]]
+
+[[file:img/poincare_section_l3.png]]
+
+[[file:img/poincare_section_l4.png]]
+
 *** Lorenz attractor
 
 [[file:img/lorenz.png]]
