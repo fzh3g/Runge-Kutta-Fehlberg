@@ -33,7 +33,7 @@ private:
 public:
     long step;                  // step
     T (*f[dim])(T t, T y[dim]); // functions to solve
-    void rkf78(T hmax, T hmin, T *hnow, T *time, T ynow[dim], T TOL);
+    void rkf78(T hmax, T hmin, T *h, T *t, T ynow[dim], T TOL);
     void solve(T hmax, T hmin, T y0[dim], T TOL, T begin, T end,
                const char *filename);
 };
