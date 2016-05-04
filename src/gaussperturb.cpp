@@ -13,12 +13,12 @@
 using namespace std;
 
 long double gaussperturb_f             = 0.0;
-long double gaussperturb_e             = 0.2;
+long double gaussperturb_e             = 0.1;
 long double gaussperturb_a             = 1.0;
-long double gaussperturb_c             = 1e-5;
-long double gaussperturb_miu           = 1e-2;
+long double gaussperturb_c             = 1e-4;
+long double gaussperturb_miu           = 1e-1;
 long double gaussperturb_tol           = 1e-14;
-long double gaussperturb_period_number = 50;
+long double gaussperturb_period_number = 30;
 
 template<class T>
 T gaussperturb_beta2(T e) {
@@ -49,7 +49,7 @@ T gaussperturb_f1(T t, T y[4]) {
 
 template<class T>
 T gaussperturb_f2(T t, T y[4]) {
-    return (-2.0 * gaussperturb_c * cos(gaussperturb_f) /
+    return (2.0 * gaussperturb_c * cos(gaussperturb_f) /
             (pow(gaussperturb_miu, 0.5) * pow(y[0], 2.5) * y[1] *
              pow(gaussperturb_gamma(y[1]), 3.0) * pow(gaussperturb_beta2(y[1]), 2.5)));
 }
