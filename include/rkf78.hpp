@@ -23,8 +23,6 @@ class RKF78{
 private:
     static const T a[13];       // rk78 parameters
     static const T b[13][12];   // rk78 parameters
-    T h;                        // step
-    T t;                        // time
     T K[13][dim];               // runge-kutta parameters
     T R[dim];                   // error
     T z[13][dim];               // make calculation of Ks easier
@@ -132,24 +130,24 @@ T RKF78<T, dim>::hnew(T h, T hmax, T hmin, T q) {
 }
 
 template<class T, int dim>
-void RKF78<T, dim>::rkf78(T hmax, T hmin, T *hnow, T *time,
+void RKF78<T, dim>::rkf78(T hmax, T hmin, T *h, T *t,
                             T ynow[dim], T TOL) {
     // function to apply the runge-kutta-fehlberg method for one step
     for (;;) {
-        RungeKuttaParams78(*time, *hnow, ynow);  // get Ks
-        for (int i=0; i < dim; i++) {            // finding errors
-            R[i] = fabs(K[0][i] + K[10][i] - K[11][i] - K[12][i])\
-                * (*hnow) * 41.0 / 810.0;
+        RungeKuttaParams78(*t, *h, ynow);  // get Ks
+        for (int i=0; i < dim; i++) {      // finding errors
+            R[i] = (fabs(K[0][i] + K[10][i] - K[11][i] - K[12][i])\
+                    * (*h) * 41.0 / 810.0);
         }
         T MaxErr = *max_element(R, R + dim); // maximium value of array R
         T q=pow(TOL / (MaxErr * 2.0), 1.0 / 7.0);
         if (MaxErr < TOL) {
-            *time += *hnow;
+            *t += *h;
             GetY(ynow);         // get Ys
             break;
         }
-        *hnow = hnew(*hnow, hmax, hmin, q); // new h
-        if (*hnow < 0){                     // error handling
+        *h = hnew(*h, hmax, hmin, q); // new h
+        if (*h < 0){                  // error handling
             throw invalid_argument("Minimum h exceeded!");
         }
     }
@@ -162,9 +160,9 @@ void RKF78<T, dim>::solve(T hmax, T hmin, T y0[dim], T TOL, T begin, T end,
     // open a file in write mode.
     ofstream outfile;
     outfile.open(filename, ios::out);
-    t = begin;             // begin of t
-    h = hmax;              // begin of h
-    step = 0;              // step
+    T t = begin;                // begin of t
+    T h = hmax;                 // begin of h
+    step = 0;                   // step
     // output header
     cout<<setw(28)<<"t"<<setw(28)<<"h";
     outfile<<setw(28)<<"t"<<setw(28)<<"h";
@@ -180,7 +178,7 @@ void RKF78<T, dim>::solve(T hmax, T hmin, T y0[dim], T TOL, T begin, T end,
     outfile<<endl;
     for (;t < end;) {
         rkf78(hmax, hmin, &h, &t, y0, TOL); // calculate one step
-        step++;                               // step plus one
+        step++;                             // step plus one
         // output result
         cout<<setiosflags(ios::scientific)
             <<setprecision(18)<<setw(28)<<t
