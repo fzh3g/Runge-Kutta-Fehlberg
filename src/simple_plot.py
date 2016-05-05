@@ -67,7 +67,7 @@ def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
              title, figname, sci, equal, show, line, figtype):
     """Read two columns of data from DATAFILE and plot."""
     # rc('text', usetex=True)
-    data = read_data.read_cols(datafile, columns, header=del_header)
+    data = read_data.read_cols(datafile, cols=columns, header=del_header)
     x = data[0]
     y = data[1]
     pl.rc('font', family='serif')

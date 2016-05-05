@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def read_cols(filename, cols, header=0):
+def read_cols(filename, cols=[0, 1], header=0):
     """Read two columns of data in a file"""
     f = open(filename, 'r')
     if header > 0:

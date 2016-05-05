@@ -12,7 +12,7 @@ ax4 = fig1.add_subplot(224)
 
 datafile = "../data/gauss_perturb.dat"
 datacols = [0, 2, 3, 4, 5, 6, 7]
-data = read_data.read_cols(datafile, datacols, header=1)
+data = read_data.read_cols(datafile, cols=datacols, header=1)
 
 gauss_time = data[0]
 gauss_a = data[1]

@@ -10,7 +10,7 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 datafile = "../data/lorenz.dat"
 datacols = [2, 3, 4]
-data = read_data.read_cols(datafile, datacols, header=1)
+data = read_data.read_cols(datafile, cols=datacols, header=1)
 
 ax.plot(data[0], data[1], data[2], marker='.', markersize=2.0,
         linestyle='None', color='r')
