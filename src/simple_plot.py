@@ -26,7 +26,7 @@ Examples:
     --del-header 1 --title 'Orbit Trace' --figname 'orbit_trace'
 """
 
-from matplotlib import rc
+# from matplotlib import rc
 import numpy as np
 import matplotlib.pyplot as pl
 import click
@@ -43,7 +43,7 @@ def simple_plot():
               help='Two columns of the data file to plot.')
 @click.option('--del-header', default=0,
               help='Number of header lines to delete.')
-@click.option('--labels', nargs=2, default=('$x$', '$y$'),
+@click.option('--labels', nargs=2, default=('x', 'y'),
               help='Labels of X and Y axes.')
 @click.option('--xlim', nargs=2, type=(float, float), default=(0, 0),
               help='Limit of X axis.')
@@ -66,7 +66,7 @@ def simple_plot():
 def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
              title, figname, sci, equal, show, line, figtype):
     """Read two columns of data from DATAFILE and plot."""
-    rc('text', usetex=True)
+    # rc('text', usetex=True)
     data = read_data.read_cols(datafile, columns, header=del_header)
     x = data[0]
     y = data[1]
@@ -75,7 +75,7 @@ def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
     if line:
         pl.plot(x, y, color='r')
     else:
-        pl.plot(x, y, marker='.', markersize=2.0, color='r',
+        pl.plot(x, y, marker='.', markersize=5.0, color='r',
                 linestyle='None')
     pl.xlabel(labels[0], fontsize=16)
     pl.ylabel(labels[1], fontsize=16)
