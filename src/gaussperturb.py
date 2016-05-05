@@ -40,8 +40,9 @@ ax3.set_ylabel('$\omega$')
 ax4.plot(gauss_time, gauss_m, 'bo', markersize=3)
 ax4.plot(gauss_time, gauss_m, 'g')
 ax4.set_xlabel('t')
-ax4.set_ylabel('m')
+ax4.set_ylabel('M')
 
+fig1.savefig('gauss_perturb.png')
 
 fig2 = plt.figure()
 ax4 = fig2.add_subplot(111)
