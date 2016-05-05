@@ -16,7 +16,7 @@ SHELL = /bin/bash
 
 all: ${DIR_BIN}/twobody ${DIR_BIN}/central_config ${DIR_BIN}/pcr3b \
 		${DIR_BIN}/poincare_section ${DIR_BIN}/sitnikov \
-		${DIR_BIN}/lorenz
+		${DIR_BIN}/lorenz ${DIR_BIN}/gaussperturb
 
 
 ${DIR_BIN}/twobody: ${DIR_SRC}/twobody.cpp \
@@ -24,6 +24,10 @@ ${DIR_BIN}/twobody: ${DIR_SRC}/twobody.cpp \
 	$(CC) $(CFLAGS) $< -o $@
 
 ${DIR_BIN}/central_config: ${DIR_SRC}/central_config.cpp \
+		${DIR_INC}/rkf78.hpp
+	$(CC) $(CFLAGS) $< -o $@
+
+${DIR_BIN}/gaussperturb: ${DIR_SRC}/gaussperturb.cpp \
 		${DIR_INC}/rkf78.hpp
 	$(CC) $(CFLAGS) $< -o $@
 
@@ -57,6 +61,9 @@ run_twobody:
 run_centconf:
 	cd ${DIR_DAT} && .${DIR_BIN}/central_config && cd ..
 
+run_gaussperturb:
+	cd ${DIR_DAT} && .${DIR_BIN}/gaussperturb && cd ..
+
 run_pcr3b:
 	cd ${DIR_DAT} && .${DIR_BIN}/pcr3b && cd ..
 
@@ -84,6 +91,9 @@ plot_pcr3b:
 	.${DIR_DAT}/pcr3b.dat --show --sci \
 	--columns 2 3 --equal --title 'Planar Circular Restricted 3 Body' \
 	--figname 'pcr3b' --figtype 'png' --line && cd ..
+
+plot_gaussperturb:
+	cd ${DIR_IMG} && .${DIR_SRC}/gaussperturb.py && cd ..
 
 plot_sitnikov:
 	cd ${DIR_IMG} && .${DIR_SRC}/simple_plot.py \
