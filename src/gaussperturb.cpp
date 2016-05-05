@@ -13,13 +13,13 @@
 using namespace std;
 
 long double gaussperturb_f             = 0.0;
-long double gaussperturb_e             = 0.5;
+long double gaussperturb_e             = 0.2;
 long double gaussperturb_a             = 1.0;
 long double gaussperturb_c             = 1e-5;
 long double gaussperturb_miu           = 1e-2;
 long double gaussperturb_tol           = 1e-14;
-long double gaussperturb_period_number = 40;
-long double gauss_pace_init            = 3;
+long double gaussperturb_period_number = 30;
+long double gauss_pace_init            = 50;
 
 template<class T>
 T gaussperturb_beta2(T e) {
