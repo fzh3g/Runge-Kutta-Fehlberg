@@ -102,10 +102,10 @@ template<class T, int dim>
 void RKF78<T, dim>::GetY(T y[dim]) {
     // get y using runge-kutta parameters
     for (int i=0; i < dim; i++) {
-        y[i] += K[5][i] * 34.0 / 105.0 +
-            (K[6][i] + K[7][i]) * 9.0 / 35.0 +
-            (K[8][i] + K[9][i]) * 9.0 / 280.0 +
-            (K[11][i] + K[12][i]) * 41.0 / 840.0;
+        y[i] += (K[5][i] * 34.0 / 105.0 +
+                 (K[6][i] + K[7][i]) * 9.0 / 35.0 +
+                 (K[8][i] + K[9][i]) * 9.0 / 280.0 +
+                 (K[11][i] + K[12][i]) * 41.0 / 840.0);
     }
 }
 
@@ -114,8 +114,8 @@ void RKF78<T, dim>::rkf78(T& h, T& t, T y[dim], T hmin, T TOL) {
     // function to apply the runge-kutta-fehlberg method for one step
     for (;;) {
         RungeKuttaParams78(t, h, y);  // get Ks
-        for (int i=0; i < dim; i++) {      // finding errors
-            R[i] = (fabs(K[0][i] + K[10][i] - K[11][i] - K[12][i])\
+        for (int i=0; i < dim; i++) { // finding errors
+            R[i] = (fabs(K[0][i] + K[10][i] - K[11][i] - K[12][i])
                     * h * 41.0 / 810.0);
         }
         T MaxErr = *max_element(R, R + dim); // maximium value of array R
