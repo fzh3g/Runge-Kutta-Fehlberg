@@ -146,7 +146,7 @@ void RKF78<T, dim>::solve(T hinit, T hmin, T y[dim], T TOL, T begin, T end,
     ofstream outfile;
     outfile.open(filename, ios::out);
     T t = begin;                // begin of t
-    T h = hinit;                 // begin of h
+    T h = hinit;                // begin of h
     step = 0;                   // step
     // output header
     cout<<setw(28)<<"t"<<setw(28)<<"h";
