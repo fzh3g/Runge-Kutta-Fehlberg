@@ -32,7 +32,7 @@ private:
 public:
     long step;                  // step
     T (*f[dim])(T t, T y[dim]); // functions to solve
-    void rkf78(T *h, T *t, T ynow[dim], T hmin, T TOL);
+    void rkf78(T& h, T& t, T ynow[dim], T hmin, T TOL);
     void solve(T hinit, T hmin, T y0[dim], T TOL, T begin, T end,
                const char *filename);
 };
@@ -110,28 +110,28 @@ void RKF78<T, dim>::GetY(T y[dim]) {
 }
 
 template<class T, int dim>
-void RKF78<T, dim>::rkf78(T *h, T *t, T ynow[dim], T hmin, T TOL) {
+void RKF78<T, dim>::rkf78(T& h, T& t, T y[dim], T hmin, T TOL) {
     // function to apply the runge-kutta-fehlberg method for one step
     for (;;) {
-        RungeKuttaParams78(*t, *h, ynow);  // get Ks
+        RungeKuttaParams78(t, h, y);  // get Ks
         for (int i=0; i < dim; i++) {      // finding errors
             R[i] = (fabs(K[0][i] + K[10][i] - K[11][i] - K[12][i])\
-                    * (*h) * 41.0 / 810.0);
+                    * h * 41.0 / 810.0);
         }
         T MaxErr = *max_element(R, R + dim); // maximium value of array R
         // T q=pow(TOL / (MaxErr * 2.0), 1.0 / 7.0);
         if (MaxErr < TOL) {
-            GetY(ynow);         // get Ys
+            GetY(y);         // get Ys
             // increase pace if error is too small
             if (MaxErr < TOL / 10) {
-                *h *= 2.0;
+                h *= 2.0;
             }
-            *t += *h;
+            t += h;
             break;
         }
         else {
-            *h /= 2.0;
-            if (*h < hmin){     // error handling
+            h /= 2.0;
+            if (h < hmin){     // error handling
                 throw invalid_argument("Minimum h exceeded!");
             }
         }
@@ -139,7 +139,7 @@ void RKF78<T, dim>::rkf78(T *h, T *t, T ynow[dim], T hmin, T TOL) {
 }
 
 template<class T, int dim>
-void RKF78<T, dim>::solve(T hinit, T hmin, T y0[dim], T TOL, T begin, T end,
+void RKF78<T, dim>::solve(T hinit, T hmin, T y[dim], T TOL, T begin, T end,
            const char *filename) {
     // function to apply the runge-kutta-fehlberg method
     // open a file in write mode.
@@ -162,20 +162,20 @@ void RKF78<T, dim>::solve(T hinit, T hmin, T y0[dim], T TOL, T begin, T end,
     cout<<endl;
     outfile<<endl;
     for (;t < end;) {
-        rkf78(&h, &t, y0, hmin, TOL); // calculate one step
+        rkf78(h, t, y, hmin, TOL); // calculate one step
         step++;                       // step plus one
         // output result
         cout<<setiosflags(ios::scientific)
             <<setprecision(18)<<setw(28)<<t
-            <<setprecision(18)<<setw(28)<<h;
+            <<setw(28)<<h;
         outfile<<setiosflags(ios::scientific)
                <<setprecision(18)<<setw(28)<<t
-               <<setprecision(18)<<setw(28)<<h;
+               <<setw(28)<<h;
         for (int i=0; i < dim; i++) {
             cout<<setiosflags(ios::scientific)<<setprecision(18)
-                <<setw(28)<<y0[i];
+                <<setw(28)<<y[i];
             outfile<<setiosflags(ios::scientific)<<setprecision(18)
-                   <<setw(28)<<y0[i];
+                   <<setw(28)<<y[i];
         }
         cout<<endl;
         outfile<<endl;

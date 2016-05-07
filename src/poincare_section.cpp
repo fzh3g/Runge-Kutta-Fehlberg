@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
         long double t = 0.0;
         for (; t < pcr3bTend;) {
             try {
-                RKF.rkf78(&h, &t, rkf, 1e-6, pcr3bTOL);
+                RKF.rkf78(h, t, rkf, 1e-6, pcr3bTOL);
             } catch (invalid_argument& e) {
                 cerr << e.what() << endl;
                 break;

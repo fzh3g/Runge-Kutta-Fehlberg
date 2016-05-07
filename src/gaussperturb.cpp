@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
     for (; t < tend;) {
         gaussperturb_get_f<long double>(a_e_omega_m, gaussperturb_tol);
         try {
-            RKF.rkf78(&h, &t, a_e_omega_m, period*1e-6, gaussperturb_tol);
+            RKF.rkf78(h, t, a_e_omega_m, period*1e-6, gaussperturb_tol);
         } catch (invalid_argument& e) {
             cerr << e.what() << endl;
             return -1;
