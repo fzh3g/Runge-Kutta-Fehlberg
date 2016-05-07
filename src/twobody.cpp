@@ -17,7 +17,7 @@ using namespace std;
 // Miu
 const long double twobody_Miu            = 10.0;
 // X
-const long double twobody_X              = 1.0;
+const long double twobody_X              = 1.1;
 // Y
 const long double twobody_Y              = 0.0;
 // V_x
@@ -25,7 +25,7 @@ const long double twobody_V_x            = 0.0;
 // V_y
 const long double twobody_V_y            = 2.0;
 // number of period
-const long double twobody_NumberofPeriod = 2;
+const long double twobody_NumberofPeriod = 10;
 // TOL
 const long double twobody_TOL            = 1e-12;
 
@@ -47,7 +47,7 @@ T f3(T t, T y[4]) {
     return -twobody_Miu * y[1] * pow(y[0] * y[0] + y[1] * y[1], -1.5);
 }
 
-int main(int argc, char *argv[]) {
+int main() {
     const char *outputfile = "twobody_output.dat"; // output file
     long double rkf[4] = {twobody_X, twobody_Y, twobody_V_x,
                           twobody_V_y}; // variables for rkf
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     RKF.f[2] = &(f2<long double>);
     RKF.f[3] = &(f3<long double>);
     long double tend = period_begin * twobody_NumberofPeriod; // tend
-    try {                                  // error handling
+    try {                       // error handling
         RKF.solve(period_begin / 1000.0, period_begin / 1e+8, rkf,
                   twobody_TOL, 0.0, tend, outputfile); // apply rkf78-4
     } catch (invalid_argument& e) {
@@ -102,34 +102,30 @@ int main(int argc, char *argv[]) {
     outfile << "Steps: " << RKF.step << endl
             << "Energy begin: " << setiosflags(ios::scientific)
             << setprecision(18) << energy_begin << endl
-            << "Energy end: " << setprecision(18) << energy_end << endl
-            << "Energy error: " << setprecision(18) << energy_err << endl
+            << "Energy end: " << energy_end << endl
+            << "Energy error: " << energy_err << endl
             << "Energy relative error: " << resetiosflags(ios::scientific)
-            << setprecision(18) << energy_relative_err * 100.0 << "\%" << endl
+            << energy_relative_err * 100.0 << "\%" << endl
             << "Period begin: " << setiosflags(ios::scientific)
-            << setprecision(18) << period_begin << endl
-            << "Period end: " << setprecision(18)
-            << period_end << endl
-            << "Period error: " << setprecision(18)
-            << period_err << endl
+            << period_begin << endl
+            << "Period end: " << period_end << endl
+            << "Period error: " << period_err << endl
             << "Period relative error: " << resetiosflags(ios::scientific)
-            << setprecision(18) << period_relative_err * 100.0 << "\%" << endl;
+            << period_relative_err * 100.0 << "\%" << endl;
     outfile.close();
     // output to screen
     cout << "Steps: " << RKF.step << endl
          << "Energy begin: " << setiosflags(ios::scientific)
          << setprecision(18) << energy_begin << endl
-         << "Energy end: " << setprecision(18) << energy_end << endl
-         << "Energy error: " << setprecision(18) << energy_err << endl
+         << "Energy end: " << energy_end << endl
+         << "Energy error: " << energy_err << endl
          << "Energy relative error: " << resetiosflags(ios::scientific)
-         << setprecision(18) << energy_relative_err * 100.0 << "\%" << endl
+         << energy_relative_err * 100.0 << "\%" << endl
          << "Period begin: " << setiosflags(ios::scientific)
-         << setprecision(18) << period_begin << endl
-         << "Period end: " << setprecision(18)
-         << period_end << endl
-         << "Period error: " << setprecision(18)
-         << period_err << endl
+         << period_begin << endl
+         << "Period end: " << period_end << endl
+         << "Period error: " << period_err << endl
          << "Period relative error: " << resetiosflags(ios::scientific)
-         << setprecision(18) << period_relative_err * 100.0 << "\%" << endl;
+         << period_relative_err * 100.0 << "\%" << endl;
     return 0;
 }

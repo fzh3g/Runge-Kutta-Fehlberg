@@ -65,7 +65,7 @@ T OrbitEllipse2D<T>::Energy(T V, T miu, T R) {
 
 template<class T>
 T OrbitEllipse2D<T>::Period(T SemiMajorAxis, T miu) {
-    return 2 * atan(1) * 4 * sqrt(pow(SemiMajorAxis, 3.0) / miu);
+    return sqrt(pow(SemiMajorAxis, 3.0) / miu) * 8.0 * atan(1.0);
 }
 
 template<class T>

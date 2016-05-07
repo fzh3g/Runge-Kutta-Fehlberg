@@ -79,7 +79,7 @@ run_lorenz:
 # Plot orbit trace using python
 plot_twobody:
 	cd ${DIR_IMG} && .${DIR_SRC}/simple_plot.py \
-	.${DIR_DAT}/twobody_output.dat --show --line \
+	.${DIR_DAT}/twobody_output.dat --show \
 	--columns 2 3 --equal --del-header 1 --title 'Orbit Trace' \
 	--figname 'orbit_trace' --figtype 'png' && cd ..
 

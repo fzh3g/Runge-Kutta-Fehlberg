@@ -161,7 +161,7 @@ void RKF78<T, dim>::solve(T hinit, T hmin, T y[dim], T TOL, T begin, T end,
     }
     cout<<endl;
     outfile<<endl;
-    for (;t < end;) {
+    for (;t <= end;) {
         rkf78(h, t, y, hmin, TOL); // calculate one step
         step++;                       // step plus one
         // output result
