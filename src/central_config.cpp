@@ -35,17 +35,16 @@ int main(int argc, char *argv[]) {
     long double h = 0.01;
     long double t = 0.0;
     long double tend = 20.0;
-    long double index[15] = {0.2, 0.4, 0.6, 0.8, 1.0, 1.2,
-                             1.4, 1.6, 1.8, 2.0, 2.2, 2.4,
-                             2.6, 2.8, 3.0};
-    for (int i = 0; i < 15; i++) {
+    long double index[10] = {0.2, 0.4, 0.6, 0.8, 1.0, 1.2,
+                             1.4, 1.6, 1.8, 2.0};
+    for (int i = 0; i < 10; i++) {
         cent_con_phi0 = index[i];
         h = 0.01;
         t = 0.0;
         long double rkf[2] = {cent_con_phi0, cent_con_phidot0};
         for (; t < tend;) {
             try {
-                RKF.rkf78(&h, &t, rkf, 1e-8, 1e-4);
+                RKF.rkf78(&h, &t, rkf, 1e-20, 1e-12);
             } catch (invalid_argument& e) {
                 cerr << e.what() << endl;
                 return -1;
