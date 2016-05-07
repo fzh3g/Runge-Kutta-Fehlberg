@@ -93,7 +93,7 @@ int main(int argc, char *argv[]) {
     RKF.step = 0;
     for (; t < pcr3bTend;) {
         try {
-            RKF.rkf78(1e-1, 1e-6, &h, &t, rkf, 1e-12);
+            RKF.rkf78(&h, &t, rkf, 1e-6, 1e-12);
         } catch (invalid_argument& e) {
             cerr << e.what() << endl;
             return -1;

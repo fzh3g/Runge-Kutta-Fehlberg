@@ -29,12 +29,11 @@ private:
     void GetZ(int l, T y[dim]);
     void RungeKuttaParams78(T t, T h, T y[dim]);
     void GetY(T y[dim]);
-    T hnew(T h, T hmax, T hmin, T q);
 public:
     long step;                  // step
     T (*f[dim])(T t, T y[dim]); // functions to solve
-    void rkf78(T hmax, T hmin, T *h, T *t, T ynow[dim], T TOL);
-    void solve(T hmax, T hmin, T y0[dim], T TOL, T begin, T end,
+    void rkf78(T *h, T *t, T ynow[dim], T hmin, T TOL);
+    void solve(T hinit, T hmin, T y0[dim], T TOL, T begin, T end,
                const char *filename);
 };
 
@@ -111,27 +110,7 @@ void RKF78<T, dim>::GetY(T y[dim]) {
 }
 
 template<class T, int dim>
-T RKF78<T, dim>::hnew(T h, T hmax, T hmin, T q) {
-    // get new h
-    if (q <= 0.1) {
-        h = h * 0.1;
-    }
-    else if (q >= 4.0) {
-        h = h * 4.0;
-    }
-    else {
-        h = h * q;
-    }
-    if (h >= hmax)
-        h = hmax;
-    else if (h < hmin)
-        h = -1;
-    return h;
-}
-
-template<class T, int dim>
-void RKF78<T, dim>::rkf78(T hmax, T hmin, T *h, T *t,
-                            T ynow[dim], T TOL) {
+void RKF78<T, dim>::rkf78(T *h, T *t, T ynow[dim], T hmin, T TOL) {
     // function to apply the runge-kutta-fehlberg method for one step
     for (;;) {
         RungeKuttaParams78(*t, *h, ynow);  // get Ks
@@ -140,28 +119,34 @@ void RKF78<T, dim>::rkf78(T hmax, T hmin, T *h, T *t,
                     * (*h) * 41.0 / 810.0);
         }
         T MaxErr = *max_element(R, R + dim); // maximium value of array R
-        T q=pow(TOL / (MaxErr * 2.0), 1.0 / 7.0);
+        // T q=pow(TOL / (MaxErr * 2.0), 1.0 / 7.0);
         if (MaxErr < TOL) {
-            *t += *h;
             GetY(ynow);         // get Ys
+            // increase pace if error is too small
+            if (MaxErr < TOL / 10) {
+                *h *= 2.0;
+            }
+            *t += *h;
             break;
         }
-        *h = hnew(*h, hmax, hmin, q); // new h
-        if (*h < 0){                  // error handling
-            throw invalid_argument("Minimum h exceeded!");
+        else {
+            *h /= 2.0;
+            if (*h < hmin){     // error handling
+                throw invalid_argument("Minimum h exceeded!");
+            }
         }
     }
 }
 
 template<class T, int dim>
-void RKF78<T, dim>::solve(T hmax, T hmin, T y0[dim], T TOL, T begin, T end,
+void RKF78<T, dim>::solve(T hinit, T hmin, T y0[dim], T TOL, T begin, T end,
            const char *filename) {
     // function to apply the runge-kutta-fehlberg method
     // open a file in write mode.
     ofstream outfile;
     outfile.open(filename, ios::out);
     T t = begin;                // begin of t
-    T h = hmax;                 // begin of h
+    T h = hinit;                 // begin of h
     step = 0;                   // step
     // output header
     cout<<setw(28)<<"t"<<setw(28)<<"h";
@@ -177,8 +162,8 @@ void RKF78<T, dim>::solve(T hmax, T hmin, T y0[dim], T TOL, T begin, T end,
     cout<<endl;
     outfile<<endl;
     for (;t < end;) {
-        rkf78(hmax, hmin, &h, &t, y0, TOL); // calculate one step
-        step++;                             // step plus one
+        rkf78(&h, &t, y0, hmin, TOL); // calculate one step
+        step++;                       // step plus one
         // output result
         cout<<setiosflags(ios::scientific)
             <<setprecision(18)<<setw(28)<<t

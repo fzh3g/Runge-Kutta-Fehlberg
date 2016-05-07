@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
         long double rkf[2] = {cent_con_phi0, cent_con_phidot0};
         for (; t < tend;) {
             try {
-                RKF.rkf78(1e-2, 1e-8, &h, &t, rkf, 1e-4);
+                RKF.rkf78(&h, &t, rkf, 1e-8, 1e-4);
             } catch (invalid_argument& e) {
                 cerr << e.what() << endl;
                 return -1;

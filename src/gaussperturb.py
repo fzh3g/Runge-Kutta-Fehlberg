@@ -26,21 +26,25 @@ ax1.plot(gauss_time, gauss_a, 'bo', markersize=3)
 ax1.plot(gauss_time, gauss_a, 'g')
 ax1.set_xlabel('t')
 ax1.set_ylabel('a')
+ax1.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
 ax2.plot(gauss_time, gauss_e, 'bo', markersize=3)
 ax2.plot(gauss_time, gauss_e, 'g')
 ax2.set_xlabel('t')
 ax2.set_ylabel('e')
+ax2.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
 
 ax3.plot(gauss_time, gauss_omega, 'bo', markersize=3)
 ax3.plot(gauss_time, gauss_omega, 'g')
 ax3.set_xlabel('t')
 ax3.set_ylabel('$\omega$')
+ax3.ticklabel_format(style='sci', scilimits=(0, 0))
 
 ax4.plot(gauss_time, gauss_m, 'bo', markersize=3)
 ax4.plot(gauss_time, gauss_m, 'g')
 ax4.set_xlabel('t')
 ax4.set_ylabel('M')
+ax4.ticklabel_format(style='sci', scilimits=(0, 0))
 
 fig1.savefig('gauss_perturb.png')
 
