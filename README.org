@@ -6,7 +6,6 @@
  - [[#contents][Contents]]
    - [[#two-body-problem][Two-body problem]]
    - [[#three-body-problems][Three-body problems]]
-     - [[#central-configuration][Central configuration]]
      - [[#restricted-three-body-problem][Restricted three-body problem]]
        - [[#hill-surface][Hill surface]]
        - [[#cj-contour][Cj contour]]
@@ -34,20 +33,6 @@ type following command in your *nix terminal:
 
 [[file:img/orbit_trace.png]]
 ** Three-body problems
-*** Central configuration
-Solve the differential equation required by =central configuration=
-
-#+BEGIN_SRC sh
-  make
-  make run_centconf
-  make plot_centconf
-#+END_SRC
-
-[[file:img/central_config_phi.png]]
-
-[[file:img/central_config_phidot.png]]
-
-[[file:img/central_config_phiphase.png]]
 *** Restricted three-body problem
 **** Hill surface
 
