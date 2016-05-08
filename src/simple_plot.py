@@ -30,7 +30,7 @@ Examples:
 import numpy as np
 import matplotlib.pyplot as pl
 import click
-import read_data
+# import read_data
 
 
 @click.group()
@@ -67,9 +67,11 @@ def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
              title, figname, sci, equal, show, line, figtype):
     """Read two columns of data from DATAFILE and plot."""
     # rc('text', usetex=True)
-    data = read_data.read_cols(datafile, cols=columns, header=del_header)
-    x = data[0]
-    y = data[1]
+    # data = read_data.read_cols(datafile, cols=columns, header=del_header)
+    # x = data[0]
+    # y = data[1]
+    x, y = np.loadtxt(datafile, dtype=np.longdouble, usecols=columns,
+                      unpack=1, skiprows=del_header)
     pl.rc('font', family='serif')
     pl.figure(figsize=(8, 6))
     if line:

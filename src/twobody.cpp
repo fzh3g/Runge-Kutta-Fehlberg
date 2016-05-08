@@ -23,9 +23,9 @@ const long double twobody_Y              = 0.0;
 // V_x
 const long double twobody_V_x            = 0.0;
 // V_y
-const long double twobody_V_y            = 2.0;
+const long double twobody_V_y            = 1.0;
 // number of period
-const long double twobody_NumberofPeriod = 10;
+const long double twobody_NumberofPeriod = 2;
 // TOL
 const long double twobody_TOL            = 1e-12;
 
@@ -72,7 +72,7 @@ int main() {
     RKF.f[3] = &(f3<long double>);
     long double tend = period_begin * twobody_NumberofPeriod; // tend
     try {                       // error handling
-        RKF.solve(period_begin / 1000.0, period_begin / 1e+8, rkf,
+        RKF.solve(period_begin / 10.0, period_begin / 1e+8, rkf,
                   twobody_TOL, 0.0, tend, outputfile); // apply rkf78-4
     } catch (invalid_argument& e) {
         cerr << e.what() << endl;

@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
     RKF.f[2] = &sitnikovf2<long double>;
     long double rkf[3] = {sitnikovZ0, sitnikovVz0, 0.0};
     try {
-        RKF.solve(0.01, 1e-8, rkf, 1e-20, 0.0, sitnikovTend, datafile);
+        RKF.solve(0.01, 1e-8, rkf, 1e-12, 0.0, sitnikovTend, datafile);
     } catch (invalid_argument& e) {
         cerr << e.what() << endl;
         return -1;

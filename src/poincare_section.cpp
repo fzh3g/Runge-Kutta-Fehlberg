@@ -19,7 +19,7 @@ const long double pcr3bTOL   = 1e-12;
 const long double pcr3bBegin = 0.45;
 const long double pcr3bEnd   = 0.55;
 const long double pcr3bTend  = 800.0;
-const int pcr3bNum           = 100;
+const int pcr3bNum           = 30;
 
 
 template<class T>
@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
         long double t = 0.0;
         for (; t < pcr3bTend;) {
             try {
-                RKF.rkf78(h, t, rkf, 1e-6, pcr3bTOL);
+                RKF.rkf78(h, t, rkf, 10, 1e-6, pcr3bTOL);
             } catch (invalid_argument& e) {
                 cerr << e.what() << endl;
                 break;

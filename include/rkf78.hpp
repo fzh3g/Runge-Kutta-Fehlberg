@@ -32,7 +32,7 @@ private:
 public:
     long step;                  // step
     T (*f[dim])(T t, T y[dim]); // functions to solve
-    void rkf78(T& h, T& t, T ynow[dim], T hmin, T TOL);
+    void rkf78(T& h, T& t, T ynow[dim], T hmax, T hmin, T TOL);
     void solve(T hinit, T hmin, T y0[dim], T TOL, T begin, T end,
                const char *filename);
 };
@@ -110,29 +110,39 @@ void RKF78<T, dim>::GetY(T y[dim]) {
 }
 
 template<class T, int dim>
-void RKF78<T, dim>::rkf78(T& h, T& t, T y[dim], T hmin, T TOL) {
+void RKF78<T, dim>::rkf78(T& h, T& t, T y[dim], T hmax, T hmin, T TOL) {
     // function to apply the runge-kutta-fehlberg method for one step
-    for (;;) {
+    if (hmin == hmax) {
         RungeKuttaParams78(t, h, y);  // get Ks
-        for (int i=0; i < dim; i++) { // finding errors
-            R[i] = (fabs(K[0][i] + K[10][i] - K[11][i] - K[12][i])
-                    * h * 41.0 / 810.0);
-        }
-        T MaxErr = *max_element(R, R + dim); // maximium value of array R
-        // T q=pow(TOL / (MaxErr * 2.0), 1.0 / 7.0);
-        if (MaxErr < TOL) {
-            GetY(y);         // get Ys
-            // increase pace if error is too small
-            if (MaxErr < TOL / 10) {
-                h *= 2.0;
+        GetY(y);                      // get Ys
+        t += h;
+    }
+    else {
+        for (;;) {
+            RungeKuttaParams78(t, h, y);  // get Ks
+            for (int i=0; i < dim; i++) { // finding errors
+                R[i] = (fabs(K[0][i] + K[10][i] - K[11][i] - K[12][i])
+                        / (TOL * h) * 41.0 / 810.0);
             }
-            t += h;
-            break;
-        }
-        else {
-            h /= 2.0;
-            if (h < hmin){     // error handling
-                throw invalid_argument("Minimum h exceeded!");
+            T MaxErr = *max_element(R, R + dim); // maximium value of array R
+            if (MaxErr < 1) {
+                GetY(y);        // get Ys
+                t += h;
+                if (MaxErr < 0.1) { // steps too small
+                    if (MaxErr == 0) {
+                        h = hmax;
+                    }
+                    else {
+                        h = min(h * 2.0, hmax);
+                    }
+                }
+                break;
+            }
+            else {              // error not tolerable
+                if (h == hmin){
+                    throw invalid_argument("Minimum h exceeded!");
+                }
+                h = max(h / 2.0, hmin);
             }
         }
     }
@@ -161,8 +171,8 @@ void RKF78<T, dim>::solve(T hinit, T hmin, T y[dim], T TOL, T begin, T end,
     }
     cout<<endl;
     outfile<<endl;
-    for (;t <= end;) {
-        rkf78(h, t, y, hmin, TOL); // calculate one step
+    for (;t < end;) {
+        rkf78(h, t, y, hinit, hmin, TOL); // calculate one step
         step++;                       // step plus one
         // output result
         cout<<setiosflags(ios::scientific)
