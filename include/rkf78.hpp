@@ -121,7 +121,7 @@ void RKF78<T, dim>::rkf78(T& h, T& t, T y[dim], T hmax, T hmin, T TOL) {
         for (;;) {
             RungeKuttaParams78(t, h, y);  // get Ks
             for (int i=0; i < dim; i++) { // finding errors
-                R[i] = (fabs(K[0][i] + K[10][i] - K[11][i] - K[12][i])
+                R[i] = (abs(K[0][i] + K[10][i] - K[11][i] - K[12][i])
                         / (TOL * h) * 41.0 / 810.0);
             }
             T MaxErr = *max_element(R, R + dim); // maximium value of array R
