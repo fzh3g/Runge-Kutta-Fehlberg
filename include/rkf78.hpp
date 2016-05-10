@@ -71,19 +71,18 @@ const T RKF78<T, dim>::b[13][12] = {
 
 template<class T, int dim>
 void RKF78<T, dim>::GetZ(int l, T y[dim]) {
-    T tmp[dim];
     for (int i=0; i < dim; i++) {
-        tmp[i] = 0;
+        z[l][i] = 0;
     }
     if (l != 0) {
         for (int i=0; i < dim; i++) {
             for (int j=0; j < l; j++) {
-                tmp[i] += K[j][i] * b[l][j];
+                z[l][i] += K[j][i] * b[l][j];
             }
         }
     }
     for (int i=0; i < dim; i++) {
-        z[l][i] = y[i] + tmp[i];
+        z[l][i] += y[i];
     }
 }
 
@@ -173,7 +172,7 @@ void RKF78<T, dim>::solve(T hinit, T hmin, T y[dim], T TOL, T begin, T end,
     outfile<<endl;
     for (;t < end;) {
         rkf78(h, t, y, hinit, hmin, TOL); // calculate one step
-        step++;                       // step plus one
+        step++;                           // step plus one
         // output result
         cout<<setiosflags(ios::scientific)
             <<setprecision(18)<<setw(28)<<t
