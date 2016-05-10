@@ -80,17 +80,12 @@ double RKF78<T, dim>::TimeDiff(timeval t1, timeval t2) {
 template<class T, int dim>
 void RKF78<T, dim>::GetZ(int l, T y[dim]) {
     for (int i=0; i < dim; i++) {
-        z[l][i] = 0;
-    }
-    if (l != 0) {
-        for (int i=0; i < dim; i++) {
+        z[l][i] = y[i];
+        if (l != 0) {
             for (int j=0; j < l; j++) {
                 z[l][i] += K[j][i] * b[l][j];
             }
         }
-    }
-    for (int i=0; i < dim; i++) {
-        z[l][i] += y[i];
     }
 }
 
