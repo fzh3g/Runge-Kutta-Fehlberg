@@ -13,7 +13,6 @@
 #include <iomanip>
 #include <cmath>
 #include <algorithm>
-#include <sstream>
 #include <string>
 #include <stdexcept>
 #include <sys/time.h>
@@ -174,9 +173,7 @@ void RKF78<T, dim>::solve(T hinit, T hmin, T y[dim], T TOL, T begin, T end,
     outfile<<setw(28)<<"t"<<setw(28)<<"h";
     for (int i=0; i < dim; i++) {
         // convert number to string
-        ostringstream convert;
-        convert << i;
-        string yi = "y" + convert.str();
+        string yi = "y" + to_string(i);
         cout<<setw(28)<<yi;
         outfile<<setw(28)<<yi;
     }
