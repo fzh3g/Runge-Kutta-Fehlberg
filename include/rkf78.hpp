@@ -16,6 +16,7 @@
 #include <sstream>
 #include <string>
 #include <stdexcept>
+#include <sys/time.h>
 using namespace std;
 
 template<class T, int dim>
@@ -26,11 +27,11 @@ private:
     T K[13][dim];               // runge-kutta parameters
     T R[dim];                   // error
     T z[13][dim];               // make calculation of Ks easier
+    double TimeDiff(timeval t1, timeval t2);
     void GetZ(int l, T y[dim]);
     void RungeKuttaParams78(T t, T h, T y[dim]);
     void GetY(T y[dim]);
 public:
-    long step;                  // step
     T (*f[dim])(T t, T y[dim]); // functions to solve
     void rkf78(T& h, T& t, T ynow[dim], T hmax, T hmin, T TOL);
     void solve(T hinit, T hmin, T y0[dim], T TOL, T begin, T end,
@@ -68,6 +69,14 @@ const T RKF78<T, dim>::b[13][12] = {
     {-1777.0/4100.0, 0.0, 0.0, -341.0/164.0, 4496.0/1025.0, -289.0/82.0,
      2193.0/4100.0, 51.0/82.0, 33.0/164.0, 12.0/41.0, 0.0, 1.0}
 };
+
+template<class T, int dim>
+double RKF78<T, dim>::TimeDiff(timeval t1, timeval t2) {
+    double t;
+    t = (t2.tv_sec - t1.tv_sec) * 1000.0;      // sec to ms
+    t += (t2.tv_usec - t1.tv_usec) / 1000.0;   // us to ms
+    return t;
+}
 
 template<class T, int dim>
 void RKF78<T, dim>::GetZ(int l, T y[dim]) {
@@ -151,12 +160,15 @@ template<class T, int dim>
 void RKF78<T, dim>::solve(T hinit, T hmin, T y[dim], T TOL, T begin, T end,
            const char *filename) {
     // function to apply the runge-kutta-fehlberg method
+    // time
+    timeval t1, t2;
+    gettimeofday(&t1, NULL);
     // open a file in write mode.
     ofstream outfile;
     outfile.open(filename, ios::out);
     T t = begin;                // begin of t
     T h = hinit;                // begin of h
-    step = 0;                   // step
+    long step = 0;                   // step
     // output header
     cout<<setw(28)<<"t"<<setw(28)<<"h";
     outfile<<setw(28)<<"t"<<setw(28)<<"h";
@@ -190,7 +202,11 @@ void RKF78<T, dim>::solve(T hinit, T hmin, T y[dim], T TOL, T begin, T end,
         outfile<<endl;
     }
     outfile.close();                    // close the opened file.
-    cout<<"Procedure completed!"<<endl; // end
+    gettimeofday(&t2, NULL);
+    double d = TimeDiff(t1,t2);
+    cout<<"Procedure completed!"<<endl;
+    cout<<"Total steps: "<<step<<endl;
+    cout<<"Time spent: "<<d<<" ms"<<endl;
 }
 
 #endif  /* RKF78_HPP_ */

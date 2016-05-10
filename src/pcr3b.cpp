@@ -90,7 +90,6 @@ int main(int argc, char *argv[]) {
     long double rkf[4] = {pcr3bX0, pcr3bVx0, pcr3bY0, Vy};
     long double h = 0.1;
     long double t = 0.0;
-    RKF.step = 0;
     for (; t < pcr3bTend;) {
         try {
             RKF.rkf78(h, t, rkf, 1e-1, 1e-6, 1e-12);
@@ -98,7 +97,6 @@ int main(int argc, char *argv[]) {
             cerr << e.what() << endl;
             return -1;
         }
-        RKF.step++;
         long double Cj = pcr3bcj(rkf);
         cout<<setiosflags(ios::scientific)
             <<setprecision(18)<<setw(28)<<t
@@ -117,7 +115,6 @@ int main(int argc, char *argv[]) {
     }
     long double Cj_end = pcr3bcj(rkf);
     long double Cj_relative_err = (Cj_end - pcr3bCj) / pcr3bCj;
-    cout<<"Total steps: "<<RKF.step<<endl;
     cout<<"Relative Cj error: "<<Cj_relative_err<<endl;
     outfile.close();
     cout<<"Procedure completed!"<<endl;

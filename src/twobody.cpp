@@ -99,8 +99,7 @@ int main() {
     // write to ascii file
     ofstream outfile;
     outfile.open("energy_period_errs.txt");
-    outfile << "Steps: " << RKF.step << endl
-            << "Energy begin: " << setiosflags(ios::scientific)
+    outfile << "Energy begin: " << setiosflags(ios::scientific)
             << setprecision(18) << energy_begin << endl
             << "Energy end: " << energy_end << endl
             << "Energy error: " << energy_err << endl
@@ -114,8 +113,7 @@ int main() {
             << period_relative_err * 100.0 << "\%" << endl;
     outfile.close();
     // output to screen
-    cout << "Steps: " << RKF.step << endl
-         << "Energy begin: " << setiosflags(ios::scientific)
+    cout << "Energy begin: " << setiosflags(ios::scientific)
          << setprecision(18) << energy_begin << endl
          << "Energy end: " << energy_end << endl
          << "Energy error: " << energy_err << endl

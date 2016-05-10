@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+#include <sys/time.h>
 #include "../include/rkf78.hpp"
 using namespace std;
 
@@ -22,6 +23,13 @@ long double gaussperturb_period_number = 5000;
 long double gaussperturb_pace_init     = 1;
 long double gaussperturb_pace_max      = 10;
 long double gaussperturb_pace_min      = 1e-6;
+
+double TimeDiff(timeval t1, timeval t2) {
+    double t;
+    t = (t2.tv_sec - t1.tv_sec) * 1000.0;      // sec to ms
+    t += (t2.tv_usec - t1.tv_usec) / 1000.0;   // us to ms
+    return t;
+}
 
 template<class T>
 T gaussperturb_beta2(T e) {
@@ -91,6 +99,8 @@ void gaussperturb_get_f(T y[4], T TOL) {
 }
 
 int main(int argc, char *argv[]) {
+    timeval t1, t2;
+    gettimeofday(&t1, NULL);
     ofstream outfile;
     outfile.open("gauss_perturb.dat", ios::out);
     RKF78<long double, 4> RKF;
@@ -138,6 +148,9 @@ int main(int argc, char *argv[]) {
                <<setw(28)<<gaussperturb_f<<endl;
     }
     outfile.close();
+    gettimeofday(&t2, NULL);
+    double d = TimeDiff(t1,t2);
+    cout<<"Time spent: "<<d<<" ms"<<endl;
     cout<<step<<" steps in total!"<<endl;
     cout<<"Procedure completed!"<<endl;
     return 0;

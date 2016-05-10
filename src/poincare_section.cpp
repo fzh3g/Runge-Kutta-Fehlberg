@@ -91,7 +91,6 @@ int main(int argc, char *argv[]) {
     long double Y = 0.0;
     long double Vx = 0.0;
     long double Vy = 0.0;
-    RKF.step = 0;
     for (int i = 0; i < pcr3bNum; i++) {
         X = pcr3bBegin + gap * i;
         long double VySquare = pcr3bvysquare(X, Y, Vx);
@@ -109,7 +108,6 @@ int main(int argc, char *argv[]) {
                 cerr << e.what() << endl;
                 break;
             }
-            RKF.step++;
             long double Cj = pcr3bcj(rkf);
             long double Cj_relative_err = (Cj - pcr3bCj) / pcr3bCj;
             if (abs(Cj_relative_err) > pcr3bCjTOL) {
@@ -129,7 +127,6 @@ int main(int argc, char *argv[]) {
                    <<setw(28)<<rkf[1]<<endl;
         }
     }
-    cout<<"Total steps: "<<RKF.step<<endl;
     outfile.close();
     cout<<"Procedure completed!"<<endl;
     return 0;
