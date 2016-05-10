@@ -3,5 +3,6 @@
 *.eps
 *.pdf
 *.pyc
-/bin/*
-/data/*
+bin
+data/
+test
