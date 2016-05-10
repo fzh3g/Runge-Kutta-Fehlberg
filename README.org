@@ -4,6 +4,7 @@
 * Table of Contents                                                             :TOC:
  - [[#purpose][Purpose]]
  - [[#contents][Contents]]
+   - [[#lorenz-attractor][Lorenz attractor]]
    - [[#two-body-problem][Two-body problem]]
    - [[#three-body-problems][Three-body problems]]
      - [[#restricted-three-body-problem][Restricted three-body problem]]
@@ -13,7 +14,8 @@
        - [[#pcr3bp][PCR3BP]]
        - [[#poincaré-section][Poincaré Section]]
        - [[#sitnikov-problem][Sitnikov problem]]
-   - [[#lorenz-attractor][Lorenz attractor]]
+   - [[#gaussian-perturbation][Gaussian perturbation]]
+   - [[#laplaces-parameter][Laplace's parameter]]
 
 * Purpose
 Using Runge-Kutta-Fehlberg 7(8) method for solving numerical problems
@@ -22,6 +24,9 @@ on C++ with some python scripts for plotting.
 
 * Contents
 
+** Lorenz attractor
+
+[[file:img/lorenz.png]]
 ** Two-body problem
 Modify the  parameters at the beginning of =twobody.cpp=, and
 type following command in your *nix terminal:
@@ -65,6 +70,15 @@ Planar circular restricted 3-body problem
 [[file:img/sitnikov_circle.png]]
 
 [[file:img/sitnikov_ellipse.png]]
-** Lorenz attractor
+** Gaussian perturbation
 
-[[file:img/lorenz.png]]
+#+BEGIN_SRC sh
+  make
+  make run_gaussperturb
+  make plot_gaussperturb
+#+END_SRC
+
+[[file:img/gauss_perturb.png]]
+** Laplace's parameter
+
+[[file:img/laplace_param.png]]
