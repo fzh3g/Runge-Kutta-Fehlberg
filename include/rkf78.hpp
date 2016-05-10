@@ -124,7 +124,7 @@ void RKF78<T, dim>::rkf78(T& h, T& t, T y[dim], T hmax, T hmin, T TOL) {
                 R[i] = (abs(K[0][i] + K[10][i] - K[11][i] - K[12][i])
                         / (TOL * h) * 41.0 / 810.0);
             }
-            T MaxErr = *max_element(R, R + dim); // maximium value of array R
+            T MaxErr = *max_element(R, R + dim); // maximium value of R
             if (MaxErr < 1) {
                 GetY(y);        // get Ys
                 t += h;
