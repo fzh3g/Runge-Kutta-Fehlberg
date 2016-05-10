@@ -13,13 +13,15 @@
 using namespace std;
 
 long double gaussperturb_f             = 0.0;
-long double gaussperturb_e             = 0.2;
+long double gaussperturb_e             = 0.1;
 long double gaussperturb_a             = 1.0;
 long double gaussperturb_c             = 1e-5;
 long double gaussperturb_miu           = 1e-2;
-long double gaussperturb_tol           = 1e-12;
-long double gaussperturb_period_number = 1000;
-long double gauss_pace_init            = 1;
+long double gaussperturb_tol           = 1e-14;
+long double gaussperturb_period_number = 30;
+long double gaussperturb_pace_init     = 1;
+long double gaussperturb_pace_max      = 1;
+long double gaussperturb_pace_min      = 1e-6;
 
 template<class T>
 T gaussperturb_beta2(T e) {
@@ -101,12 +103,12 @@ int main(int argc, char *argv[]) {
         pow(gaussperturb_miu, 0.5);
     long double tend = gaussperturb_period_number * period;
     long double t = 0.0;
-    long double h = gauss_pace_init;
+    long double h = gaussperturb_pace_init;
     int step = 0;
     for (; t < tend;) {
         gaussperturb_get_f<long double>(a_e_omega_m, gaussperturb_tol);
         try {
-            RKF.rkf78(h, t, a_e_omega_m, period*100, period*1e-6, gaussperturb_tol);
+            RKF.rkf78(h, t, a_e_omega_m, gaussperturb_pace_max, gaussperturb_pace_min, gaussperturb_tol);
         } catch (invalid_argument& e) {
             cerr << e.what() << endl;
             return -1;
