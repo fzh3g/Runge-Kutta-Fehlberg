@@ -1,4 +1,4 @@
-#+TITLE: Runge-Kutta-Fehlberg 7(8) Method for Astro-dynamics
+#+TITLE: RKF 7(8) Method for Celestial Dynamics on C++
 
 
 * Table of Contents                                                             :TOC:
@@ -17,7 +17,8 @@
 
 * Purpose
 Using Runge-Kutta-Fehlberg 7(8) method for solving numerical problems
-in astro-dynamics, for example, two-body and three-body problems.
+in celestial dynamics, for example, two-body and three-body problems, mainly
+on C++ with some python scripts for plotting.
 
 * Contents
 
