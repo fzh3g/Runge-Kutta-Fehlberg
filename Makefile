@@ -8,8 +8,8 @@ DIR_IMG = ./img
 # The default compiler is g++
 CC = g++
 
-# Flags for the compiler. Ask for warnings.
-CFLAGS = -Wall -std=c++14 -I${DIR_INC}
+# Flags for the compiler.
+CFLAGS = -Wall -mtune=native -march=native -std=c++11 -I${DIR_INC}
 
 # shell
 SHELL = /bin/bash
