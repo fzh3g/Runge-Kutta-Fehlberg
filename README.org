@@ -16,6 +16,7 @@
        - [[#sitnikov-problem][Sitnikov problem]]
    - [[#gaussian-perturbation][Gaussian perturbation]]
    - [[#laplaces-parameter][Laplace's parameter]]
+   - [[#spin-orbit-resonance][Spin-orbit resonance]]
 
 * Purpose
 Using Runge-Kutta-Fehlberg 7(8) method for solving numerical problems
@@ -82,3 +83,6 @@ Planar circular restricted 3-body problem
 ** Laplace's parameter
 
 [[file:img/laplace_param.png]]
+** Spin-orbit resonance
+
+[[file:img/sor.png]]
