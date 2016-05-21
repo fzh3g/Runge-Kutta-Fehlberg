@@ -8,9 +8,6 @@
    - [[#two-body-problem][Two-body problem]]
    - [[#three-body-problems][Three-body problems]]
      - [[#restricted-three-body-problem][Restricted three-body problem]]
-       - [[#hill-surface][Hill surface]]
-       - [[#cj-contour][Cj contour]]
-       - [[#cj-surface][Cj surface]]
        - [[#pcr3bp][PCR3BP]]
        - [[#poincaré-section][Poincaré Section]]
        - [[#sitnikov-problem][Sitnikov problem]]
@@ -41,15 +38,6 @@ type following command in your *nix terminal:
 [[file:img/orbit_trace.png]]
 ** Three-body problems
 *** Restricted three-body problem
-**** Hill surface
-
-[[file:img/hill_surf.png]]
-**** Cj contour
-
-[[file:img/cj_contour.png]]
-**** Cj surface
-
-[[file:img/cj_surface.png]]
 **** PCR3BP
 
 Planar circular restricted 3-body problem
