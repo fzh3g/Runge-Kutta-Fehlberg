@@ -9,14 +9,14 @@ DIR_IMG = ./img
 CC = g++
 
 # Flags for the compiler.
-CFLAGS = -Wall -mtune=native -march=native -std=c++11 -I${DIR_INC}
+CFLAGS = -Wall -O2 -march=native -pipe -std=c++11 -I${DIR_INC}
 
 # shell
 SHELL = /bin/bash
 
 all: ${DIR_BIN}/twobody ${DIR_BIN}/central_config ${DIR_BIN}/pcr3b \
 		${DIR_BIN}/poincare_section ${DIR_BIN}/sitnikov \
-		${DIR_BIN}/lorenz ${DIR_BIN}/gaussperturb
+		${DIR_BIN}/lorenz ${DIR_BIN}/gaussperturb ${DIR_BIN}/sor
 
 
 ${DIR_BIN}/twobody: ${DIR_SRC}/twobody.cpp \
@@ -46,9 +46,13 @@ ${DIR_BIN}/lorenz: ${DIR_SRC}/lorenz.cpp \
 		${DIR_INC}/rkf78.hpp
 	$(CC) $(CFLAGS) $< -o $@
 
+${DIR_BIN}/sor: ${DIR_SRC}/spin_orbit_resonance.cpp \
+		${DIR_INC}/rkf78.hpp
+	$(CC) $(CFLAGS) $< -o $@
+
 .PHONY: all clean run_twobody plot_twobody run_centconf plot_centconf \
 		run_pcr3b plot_pcr3b run_poincsec run_sitnikov plot_sitnikov \
-		run_lorenz
+		run_lorenz run_sor plot_sor
 
 # Remove files compiled
 clean:
@@ -76,6 +80,9 @@ run_sitnikov:
 run_lorenz:
 	cd ${DIR_DAT} && .${DIR_BIN}/lorenz && cd ..
 
+run_sor:
+	cd ${DIR_DAT} && .${DIR_BIN}/sor && cd ..
+
 # Plot orbit trace using python
 plot_twobody:
 	cd ${DIR_IMG} && .${DIR_SRC}/simple_plot.py \
@@ -101,3 +108,9 @@ plot_sitnikov:
 	--columns 2 3 --title 'Phase Diagram of Sitnikov Problem' \
 	--labels 'x' 'dx/dt' --figname 'sitnikov' --figtype 'png' \
 	&& cd ..
+
+plot_sor:
+	cd ${DIR_IMG} && .${DIR_SRC}/simple_plot.py \
+	.${DIR_DAT}/spin_orbit_resonance.dat --show --tex \
+	--labels '\theta{}\,(2\pi)' '\dot{\theta}' --xlim 0 1 --ylim -0.5 2.5 \
+	--figname 'sor' --figtype 'png'
