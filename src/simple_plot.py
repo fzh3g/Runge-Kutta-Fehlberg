@@ -62,9 +62,11 @@ def simple_plot():
               help='Show the figure.')
 @click.option('--line', is_flag=True,
               help='Plot line instead of dots.')
+@click.option('--tex', is_flag=True,
+              help='Using LaTeX.')
 @click.argument('datafile')
 def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
-             title, figname, sci, equal, show, line, figtype):
+             title, figname, sci, equal, show, line, figtype, tex):
     """Read two columns of data from DATAFILE and plot."""
     # rc('text', usetex=True)
     # data = read_data.read_cols(datafile, cols=columns, header=del_header)
@@ -79,8 +81,11 @@ def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
     else:
         pl.plot(x, y, marker='.', markersize=5.0, color='r',
                 linestyle='None')
-    pl.xlabel(labels[0], fontsize=16)
-    pl.ylabel(labels[1], fontsize=16)
+    if tex:
+        labelx = r'$' + labels[0] + r'$'
+        labely = r'$' + labels[1] + r'$'
+    pl.xlabel(labelx, fontsize=16)
+    pl.ylabel(labely, fontsize=16)
     if not (xlim[0] == xlim[1]):
         pl.xlim(xlim)
     if not (ylim[0] == ylim[1]):
@@ -90,6 +95,8 @@ def plot_fig(datafile, columns, del_header, labels, xlim, ylim,
     if equal:
         pl.axis('equal')
     if len(title) > 0:
+        if tex:
+            title = r'$' + title + r'$'
         pl.title(title, fontsize=16)
     fig_name = figname + '.' + figtype
     pl.savefig(fig_name)
